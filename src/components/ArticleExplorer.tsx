@@ -13,7 +13,7 @@ export function ArticleExplorer({ articles }: ArticleExplorerProps) {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8" id="top">
-      <div className="text-center mb-12 py-12">
+      <div className="text-center py-12">
         <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full mb-6 shadow-lg">
           <Lightbulb className="w-10 h-10 text-white fill-white" />
           <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-md">

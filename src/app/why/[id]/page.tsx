@@ -18,15 +18,42 @@ interface ArticleDetailPageProps {
 
 export async function generateMetadata({ params }: ArticleDetailPageProps) {
   const article = await getArticleById(params.id);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+
   if (!article) {
     return {
       title: "記事が見つかりませんでした"
     };
   }
 
+  const ogImage = article.imageUrl || (article.imageQuery ? unsplash_tool(article.imageQuery) : `${siteUrl}/opengraph-image`);
+
   return {
-    title: `${article.title} | なんでBOX`,
-    description: article.excerpt
+    title: article.title,
+    description: article.excerpt,
+    keywords: article.keywords,
+    openGraph: {
+      type: "article",
+      url: `${siteUrl}/why/${article.id}`,
+      title: article.title,
+      description: article.excerpt,
+      publishedTime: article.publishedAt,
+      tags: article.tags.map(tag => tag.name),
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: article.title
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [ogImage]
+    }
   };
 }
 
@@ -56,8 +83,38 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
 
   const heroImage = article.imageUrl || (article.imageQuery ? unsplash_tool(article.imageQuery) : undefined);
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.excerpt,
+    image: heroImage || `${siteUrl}/opengraph-image`,
+    datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    author: {
+      '@type': 'Organization',
+      name: 'なんでBOX',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'なんでBOX',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/icon.svg`,
+      },
+    },
+    keywords: article.keywords.join(', '),
+    articleSection: article.tags.map(tag => tag.name).join(', '),
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-purple-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header />
       <main className="max-w-5xl mx-auto px-4 py-12">
         <Link
