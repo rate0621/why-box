@@ -10,6 +10,17 @@ import { getArticleById, getArticles } from "@/lib/cms";
 import type { ArticleDetailSection } from "@/lib/cms";
 import { unsplash_tool } from "@/lib/unsplash";
 
+// ISR: 1時間ごとに記事を再取得
+export const revalidate = 3600;
+
+// 動的ルートの静的生成
+export async function generateStaticParams() {
+  const articles = await getArticles();
+  return articles.map((article) => ({
+    id: article.id,
+  }));
+}
+
 interface ArticleDetailPageProps {
   params: {
     id: string;
@@ -239,7 +250,7 @@ function SectionContent({ section, className }: { section: ArticleDetailSection;
   if (section.isHtml) {
     return (
       <div
-        className={`text-sm text-gray-700 leading-relaxed [&_p]:mb-1.5 [&_strong]:text-gray-900 ${className ?? ""}`}
+        className={`article-content text-sm text-gray-700 leading-relaxed [&_p]:mb-1.5 [&_strong]:text-gray-900 ${className ?? ""}`}
         dangerouslySetInnerHTML={{ __html: section.content }}
       />
     );

@@ -149,3 +149,16 @@
 html {
   font-size: var(--font-size);
 }
+
+/* 記事本文内のリンクスタイル */
+article a,
+.article-content a {
+  color: #2563eb;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+article a:hover,
+.article-content a:hover {
+  color: #9333ea;
+}

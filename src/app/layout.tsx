@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Noto_Sans_JP } from "next/font/google";
+import { GoogleTagManager } from "@/components/GoogleTagManager";
 import "./globals.css";
 
 const notoSans = Noto_Sans_JP({
@@ -63,6 +64,7 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${notoSans.className} antialiased bg-gradient-to-b from-blue-50 to-purple-50`}>
+        <GoogleTagManager gtmId="GTM-N6T8KGGF" />
         {children}
       </body>
     </html>
