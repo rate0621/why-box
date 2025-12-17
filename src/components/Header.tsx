@@ -9,7 +9,7 @@ export function Header() {
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="relative flex items-center justify-center w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-lg">
               <Lightbulb className="w-6 h-6 text-white fill-white" />
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
@@ -19,7 +19,7 @@ export function Header() {
             <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
               なんでBOX
             </h1>
-          </div>
+          </Link>
 
           <nav className="hidden md:flex items-center gap-6">
             {[

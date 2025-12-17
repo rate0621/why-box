@@ -127,25 +127,25 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Header />
-      <main className="max-w-5xl mx-auto px-4 py-12">
+      <main className="max-w-5xl mx-auto px-4 py-6">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-blue-600 hover:text-purple-600 transition-colors mb-6"
+          className="inline-flex items-center gap-2 text-blue-600 hover:text-purple-600 transition-colors mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           記事一覧に戻る
         </Link>
 
         <div className="space-y-6">
-          <section className="bg-white/80 rounded-3xl shadow-sm border border-blue-50 overflow-hidden">
+          <section className="bg-white/80 rounded-3xl shadow-sm border border-blue-50 overflow-hidden max-w-3xl mx-auto">
             {heroImage ? (
               <div className="relative w-full aspect-video">
                 <Image
                   src={heroImage}
                   alt={article.title}
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 1024px"
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 768px"
                   priority
                 />
               </div>
@@ -157,17 +157,17 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
             )}
           </section>
 
-          <section className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 space-y-5">
-            <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600">
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-600">
-                #{primaryTag}
-              </span>
-            </div>
+          <section className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900 mb-2">{article.title}</h1>
-              <p className="text-gray-600 border-l-4 border-blue-400 pl-4 py-2 bg-blue-50 rounded-r-lg">
-                {article.excerpt}
-              </p>
+              <h1 className="text-3xl font-bold text-gray-900 mb-3">{article.title}</h1>
+              <div className="border-2 border-blue-400 rounded-lg p-4 bg-gradient-to-r from-blue-50 to-purple-50 shadow-sm">
+                <div className="flex items-start gap-2">
+                  <span className="text-2xl flex-shrink-0">💡</span>
+                  <p className="text-gray-800 text-base font-medium leading-relaxed">
+                    {article.excerpt}
+                  </p>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -198,12 +198,23 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
                 <p className="text-sm text-gray-600">本文を準備中です。</p>
               )}
 
-              <div className="mt-8 p-6 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border-2 border-yellow-200">
-                <h3 className="mb-3 text-gray-900 flex items-center gap-2 text-base font-semibold">
-                  <span>💡</span>
+              <div className="mt-8 p-6 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl border-3 border-yellow-400 shadow-md">
+                <h3 className="mb-4 text-gray-900 flex items-center gap-3 text-lg font-bold">
+                  <span className="text-3xl">💡</span>
                   まとめ
                 </h3>
-                <p className="text-gray-700 text-sm md:text-base">{article.excerpt}</p>
+                <p className="text-gray-800 text-base leading-relaxed font-medium">{article.excerpt}</p>
+              </div>
+
+              <div className="mt-6 flex flex-wrap items-center gap-2">
+                {article.tags.map((tag) => (
+                  <span
+                    key={tag.id}
+                    className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm"
+                  >
+                    #{tag.name}
+                  </span>
+                ))}
               </div>
             </div>
           </section>
