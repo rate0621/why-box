@@ -212,7 +212,7 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
                     key={tag.id}
                     className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm"
                   >
-                    #{tag.name}
+                    #{tag.name.replace(/^#/, '')}
                   </span>
                 ))}
               </div>
@@ -261,14 +261,14 @@ function SectionContent({ section, className }: { section: ArticleDetailSection;
   if (section.isHtml) {
     return (
       <div
-        className={`article-content text-sm text-gray-700 leading-relaxed [&_p]:mb-1.5 [&_strong]:text-gray-900 ${className ?? ""}`}
+        className={`article-content text-base text-gray-700 leading-loose [&_p]:mb-3 [&_strong]:text-gray-900 ${className ?? ""}`}
         dangerouslySetInnerHTML={{ __html: section.content }}
       />
     );
   }
 
   return (
-    <p className={`text-sm text-gray-700 leading-relaxed whitespace-pre-line ${className ?? ""}`}>
+    <p className={`text-base text-gray-700 leading-loose whitespace-pre-line ${className ?? ""}`}>
       {section.content}
     </p>
   );

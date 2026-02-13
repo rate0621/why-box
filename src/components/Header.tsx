@@ -23,9 +23,9 @@ export function Header() {
 
           <nav className="hidden md:flex items-center gap-6">
             {[
-              { href: '#top', label: 'ホーム' },
-              { href: '#popular', label: '最新の疑問' },
-              { href: '#contact', label: 'お問い合わせ' },
+              { href: '/', label: 'ホーム' },
+              { href: '/', label: '最新の疑問' },
+              { href: '/contact', label: 'お問い合わせ' },
             ].map((item) => (
               <Link
                 key={item.label}

@@ -13,7 +13,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
   const imageUrl =
     article.imageUrl ||
     (article.imageQuery ? unsplash_tool(article.imageQuery) : unsplash_tool('curiosity kids learning'));
-  const primaryTag = article.tags[0]?.name ?? 'ナレッジ';
+  const primaryTag = (article.tags[0]?.name ?? 'ナレッジ').replace(/^#/, '');
   
   return (
     <Link href={`/why/${article.id}`} className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-3xl">
